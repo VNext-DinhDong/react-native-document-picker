@@ -152,14 +152,14 @@ public class DocumentPickerModule extends ReactContextBaseJavaModule {
 			try {
 				WritableArray results = Arguments.createArray();
 
-				if (uri != null) {
-					results.pushMap(getMetadata(uri));
-				} else if (clipData != null && clipData.getItemCount() > 0) {
+				if (clipData != null && clipData.getItemCount() > 0) {
 					final int length = clipData.getItemCount();
 					for (int i = 0; i < length; ++i) {
 						ClipData.Item item = clipData.getItemAt(i);
 						results.pushMap(getMetadata(item.getUri()));
 					}
+				} else if (uri != null) {
+					results.pushMap(getMetadata(uri));
 				} else {
 					promise.reject(E_INVALID_DATA_RETURNED, "Invalid data returned by intent");
 					return;
